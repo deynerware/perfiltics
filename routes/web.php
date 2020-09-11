@@ -16,3 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::post('/api/login', 'UserController@login');
+Route::post('/api/register', 'UserController@register');
+Route::put('/api/user/update', 'UserController@update')->middleware('api.auth');
