@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
+use App\Product;
 use Illuminate\Http\Request;
-use App\Http\Resources\CategoryResource;
+use App\Http\Resources\ProductResource;
 
-class CategoryController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return CategoryResource::collection( Category::with('products')->get() ); 
+        return ProductResource::collection( Product::with('category' )->get() );
     }
 
     /**
@@ -26,16 +26,16 @@ class CategoryController extends Controller
      */
     public function store( Request $request )
     {
-        $json = $request->input('json');
-        $params_array = json_decode($json, true);
+        $json = $request->input( 'json' );
+        $params_array = json_decode( $json, true );
 
-        Category::create( $params_array );
+        Product::create( $params_array );
 
         $data = array(
             'data' => [
                 'status'        => 'success',
                 'code'          => 200,
-                'message'       => 'The category was created correctly'
+                'message'       => 'The Product was created correctly'
             ]
         );
 
@@ -45,35 +45,35 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Category  $category
+     * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show( Category $category )
+    public function show( Product $product )
     {
-        $category = new CategoryResource( $category );
+        $product = new ProductResource( $product );
 
-        return $category;
+        return $product;
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Category  $category
+     * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update( Request $request, Category $category )
+    public function update( Request $request, Product $product )
     {
         $json = $request->input( 'json' );
         $params_array = json_decode( $json, true );
 
-        $category->update( $params_array );
+        $product->update( $params_array );
 
         $data = array(
             'data' => [
                 'status'        => 'success',
                 'code'          => 200,
-                'message'       => 'The category was updated correctly'
+                'message'       => 'The product was updated correctly'
             ]
         );
 
@@ -83,18 +83,18 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Category  $category
+     * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy( Category $category )
+    public function destroy( Product $product )
     {
-        $category->delete();
+        $product->delete();
 
         $data = array(
             'data' => [
                 'status'        => 'success',
                 'code'          => 200,
-                'message'       => 'The category was deleted correctly'
+                'message'       => 'The product was deleted correctly'
             ]
         );
 

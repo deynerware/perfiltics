@@ -27,8 +27,8 @@ class ApiAuthMiddleware
         {
             $data = array(
                 'status'        => 'error',
-                'code'          => 404,
-                'message'       => 'The data sent is not correct',
+                'code'          => 302,
+                'message'       => 'Unauthenticated user',
             );
         }
 
